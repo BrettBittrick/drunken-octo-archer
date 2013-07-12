@@ -5,7 +5,7 @@ pygame.init()
 fpsClock = pygame.time.Clock()
 
 #sets the window size
-windowX, windowY = 640 , 480
+windowX, windowY = 1024 , 768
 
 #sets the map size (in tiles)
 mapX, mapY = 256, 256
@@ -23,18 +23,18 @@ windowSurfaceObj = pygame.display.set_mode((windowX,windowY))
 pygame.display.set_caption('Yay! pygame works!')
 
 tileSurfaceObj = pygame.image.load('../dat/img/grass.png')
+selectSurfaceObj = pygame.image.load('../dat/img/select.png')
+
 
 while True:
-	#windowSurfaceObj.fill(pygame.Color(0,0,0))
-	#windowSurfaceObj.blit(tileSurfaceObj, (mouseX,mouseY))
-
-	y = int(tilesY)
+	windowSurfaceObj.fill(pygame.Color(0,0,0))
 	
 	for tileY in range(tilesY):
 		for tileX in range(tilesX):
 			windowSurfaceObj.blit(tileSurfaceObj, (tileX * tileSize, tileY * tileSize))
 			
-
+	#this is probably pretty slow, I'll revise this later
+	windowSurfaceObj.blit(selectSurfaceObj, ( mouseX - (mouseX % 16),mouseY - (mouseY % 16)))
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			pygame.quit()
