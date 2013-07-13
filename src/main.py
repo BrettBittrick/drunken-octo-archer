@@ -20,21 +20,29 @@ tilesY = (windowY / tileSize) + 1
 mouseX, mouseY = 0 , 0
 
 windowSurfaceObj = pygame.display.set_mode((windowX,windowY))
-pygame.display.set_caption('Yay! pygame works!')
+pygame.display.set_caption('It begins')
 
 tileSurfaceObj = pygame.image.load('../dat/img/grass.png')
 selectSurfaceObj = pygame.image.load('../dat/img/select.png')
 
+class Tile(object):
+	"""Base tile"""
+	def __init__(self, art):
+		self.art = art
+	def GetArt(self):
+		return self.art
+		
+t = Tile(tileSurfaceObj)
 
 while True:
 	windowSurfaceObj.fill(pygame.Color(0,0,0))
 	
 	for tileY in range(tilesY):
 		for tileX in range(tilesX):
-			windowSurfaceObj.blit(tileSurfaceObj, (tileX * tileSize, tileY * tileSize))
+			windowSurfaceObj.blit(t.GetArt(), (tileX * tileSize, tileY * tileSize))
 			
 	#this is probably pretty slow, I'll revise this later
-	windowSurfaceObj.blit(selectSurfaceObj, ( mouseX - (mouseX % 16),mouseY - (mouseY % 16)))
+	windowSurfaceObj.blit(selectSurfaceObj, ( mouseX - (mouseX % tileSize),mouseY - (mouseY % tileSize)))
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			pygame.quit()
